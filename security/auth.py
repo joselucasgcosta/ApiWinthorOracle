@@ -14,11 +14,11 @@ ACCESS_TOKEN_EXPIRE_MINUTES = int(ConfigAuth.ACCESS_TOKEN_EXPIRE_MINUTES)
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
-password_jose = pwd_context.hash("jose$$lucas")
+password_jose = pwd_context.hash("test$$password")
 users_db = {
     "joselucas": {
-        "username": "joselucas",
-        "full_name": "José Lucas Guimarães Costa",
+        "username": "testuser",
+        "full_name": "João da Silva Santos",
         "hashed_password": password_jose,
         "role": "admin",
     }
