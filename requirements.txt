@@ -1,0 +1,29 @@
+# API Winthor - Dependências Python
+# =================================
+
+# Framework Web
+fastapi==0.104.1
+uvicorn[standard]==0.24.0
+
+# Autenticação e Segurança
+python-jose[cryptography]==3.3.0
+passlib[bcrypt]==1.7.4
+
+# Banco de Dados Oracle
+JayDeBeApi==1.2.3
+JPype1==1.4.1
+
+# Configuração de Ambiente
+python-dotenv==1.0.0
+
+# Desenvolvimento (opcional)
+# pytest==7.4.3
+# httpx==0.25.2
+# black==23.11.0
+# flake8==6.1.0
+
+# Dependências do Sistema
+# =======================
+# Java Runtime Environment (JRE) 8+
+# Oracle JDBC Driver (ojdbc17.jar)
+# Oracle Client (recomendado)

@@ -1,0 +1,14 @@
+# Após colocar suas credenciais, renomeie a arquivo para .env
+# Nunca exponha o arquivo .env em repositórios públicos
+
+ORACLE_USER='oracle_user'
+ORACLE_PASSWORD='oracle_password'
+ORACLE_SERVICE='oracle_service'
+ORACLE_HOST='oracle_host'
+ORACLE_PORT='oracle_port'
+JDBC_PATH='connection/ojdbc17.jar'
+JDBC_DRIVER='oracle.jdbc.driver.OracleDriver'
+
+SECRET_KEY = "sua-cahve-secreta"
+ALGORITHM = "HS256"
+ACCESS_TOKEN_EXPIRE_MINUTES = 99
