@@ -115,8 +115,8 @@ Certifique-se de que:
 
 Atualmente, o sistema possui um usuário pré-configurado:
 
-- **Username:** `joselucas`
-- **Password:** `jose$$lucas`
+- **Username:** `testuser`
+- **Password:** `teste$$user`
 - **Role:** `admin`
 
 ### Como Funciona
