@@ -447,12 +447,11 @@ Este projeto está sob a licença MIT. Veja o arquivo `LICENSE` para mais detalh
 
 Para suporte técnico ou dúvidas:
 
-- **E-mail:** suporte@empresa.com
-- **Telefone:** (11) 9999-9999
+- **E-mail:** joselucasgc@gmail.com
 - **Documentação Técnica:** Consulte os comentários no código fonte
 
 ---
 
-**Última atualização:** Janeiro 2024
+**Última atualização:** Agosto 2025
 **Versão:** 1.0.0
 **Mantenedor:** José Lucas Guimarães Costa
