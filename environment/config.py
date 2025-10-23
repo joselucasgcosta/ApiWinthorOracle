@@ -19,11 +19,7 @@ class Config:
 class ConfigAuth:
     SECRET_KEY = os.getenv('SECRET_KEY')
     ALGORITHM = os.getenv('ALGORITHM')
-<<<<<<< HEAD
-    ACCESS_TOKEN_EXPIRE_MINUTES = os.getenv('ACCESS_TOKEN_EXPIRE_MINUTES')
-=======
     ACCESS_TOKEN_EXPIRE_MINUTES = os.getenv('ACCESS_TOKEN_EXPIRE_MINUTES')
     USER_1_USERNAME = os.getenv('USER_1_USERNAME')
     USER_1_PASSWORD = os.getenv('USER_1_PASSWORD')
     USER_1_FULLNAME = os.getenv('USER_1_FULLNAME')
->>>>>>> d623871 (Update version files)

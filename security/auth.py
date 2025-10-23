@@ -10,35 +10,18 @@ from fastapi.security import OAuth2PasswordBearer
 SECRET_KEY = ConfigAuth.SECRET_KEY
 ALGORITHM = ConfigAuth.ALGORITHM
 ACCESS_TOKEN_EXPIRE_MINUTES = int(ConfigAuth.ACCESS_TOKEN_EXPIRE_MINUTES)
-<<<<<<< HEAD
-=======
 USER_1_USERNAME = ConfigAuth.USER_1_USERNAME
 USER_1_PASSWORD = ConfigAuth.USER_1_PASSWORD
-USER_1_USERNAME = ConfigAuth.USER_1_FULLNAME
->>>>>>> d623871 (Update version files)
+USER_1_FULLNAME = ConfigAuth.USER_1_FULLNAME
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
 password_jose = pwd_context.hash(USER_1_PASSWORD)
 users_db = {
     "joselucas": {
         "username": USER_1_USERNAME,
-        "full_name": USER_1_USERNAME,
-=======
->>>>>>> d623871 (Update version files)
-password_jose = pwd_context.hash("test$$password")
-users_db = {
-    "joselucas": {
-        "username": "testuser",
-        "full_name": "João da Silva Santos",
-<<<<<<< HEAD
-=======
->>>>>>> 6cd3a60aad58a544ee87743d4f2dbb440c0e5a62
->>>>>>> d623871 (Update version files)
+        "full_name": USER_1_FULLNAME,
         "hashed_password": password_jose,
         "role": "admin",
     }
