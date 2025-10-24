@@ -7,9 +7,10 @@ logger = get_logger(__name__)
 
 oracle_db = OracleConnection()
 
+
 class Model:
     """Classe base para modelos que interagem com o banco de dados Oracle"""
-    
+
     @staticmethod
     def try_connection():
         """Executa uma consulta teste. Use para testar a conexão."""
@@ -25,9 +26,10 @@ class Model:
             return None
 
     @staticmethod
-    def query_info_client(codcli): # pode ser alterado o nome da função para algo mais específico seguindo as boas práticas, mas lembre-se de alterar na rota também
+    # pode ser alterado o nome da função para algo mais específico seguindo as boas práticas, mas lembre-se de alterar na rota também
+    def query_info_client(codcli):
         """Executa uma consulta no banco e retorna informações"""
-        
+
         # Query SQL para extrair informações do banco de dados
         query = """
             SELECT
@@ -40,11 +42,12 @@ class Model:
             WHERE
                 CODCLI = ?
         """
-        
+
         try:
-            result = oracle_db.execute_query(query, [codcli]) 
+            result = oracle_db.execute_query(query, [codcli])
             if not result:
-                logger.warning(f"⚠️ Consulta sem resultados para codcli: {codcli}")
+                logger.warning(
+                    f"⚠️ Consulta sem resultados para codcli: {codcli}")
 
             return result if result else None
             """ A consulta deve retornar os dados (colunas) de acordo com o model que será criado para fazer o tráfego de dados."""
@@ -52,11 +55,11 @@ class Model:
         except Exception as e:
             logger.error(f"❌ Erro ao executar consulta {e}", exc_info=True)
             return None
-        
+
     @staticmethod
     def answer_table(codfilial):
         """Executa uma consulta no banco e retorna informações"""
-        
+
         # Query SQL para extrair informações do banco de dados
         query = """
             SELECT
@@ -67,9 +70,9 @@ class Model:
             WHERE
                 CODFILIAL = ?
         """
-        
+
         try:
-            result_cot = oracle_db.execute_query(query, [codfilial]) 
+            result_cot = oracle_db.execute_query(query, [codfilial])
             if not result_cot:
                 logger.warning(f"⚠️ Tabela de preços atualizada.")
 
@@ -79,11 +82,11 @@ class Model:
         except Exception as e:
             logger.error(f"❌ Erro ao executar consulta {e}", exc_info=True)
             return None
-    
+
     @staticmethod
     def sales_by_rca_between_dates(codusur, data1, data2):
         """Executa uma consulta no banco e retorna informações"""
-        
+
         # Query SQL para extrair informações do banco de dados
         query = """
         SELECT
@@ -94,9 +97,9 @@ class Model:
             CODUSUR = ?
             AND TRUNC(DATA) BETWEEN TO_DATE(?, 'DD/MM/YYYY') AND TO_DATE(?, 'DD/MM/YYYY')
         """
-        
+
         try:
-            result = oracle_db.execute_query(query, [codusur, data1, data2]) 
+            result = oracle_db.execute_query(query, [codusur, data1, data2])
             if not result:
                 logger.warning(f"⚠️ Nenhum dado encontrado.")
 
@@ -110,7 +113,7 @@ class Model:
     @staticmethod
     def sales_by_rca(codusur, data1):
         """Executa uma consulta no banco e retorna informações"""
-        
+
         # Query SQL para extrair informações do banco de dados
         query = """
         SELECT
@@ -121,9 +124,9 @@ class Model:
             CODUSUR = ?
             AND TRUNC(DATA) = TO_DATE(?, 'DD/MM/YYYY')
         """
-        
+
         try:
-            result = oracle_db.execute_query(query, [codusur, data1]) 
+            result = oracle_db.execute_query(query, [codusur, data1])
             if not result:
                 logger.warning(f"⚠️ Nenhum dado encontrado.")
 
@@ -133,11 +136,11 @@ class Model:
         except Exception as e:
             logger.error(f"❌ Erro ao executar consulta {e}", exc_info=True)
             return None
-    
+
     @staticmethod
     def sales_by_superv_between_dates(codsupervisor, data1, data2):
         """Executa uma consulta no banco e retorna informações"""
-        
+
         # Query SQL para extrair informações do banco de dados
         query = """
         SELECT
@@ -148,9 +151,10 @@ class Model:
             CODSUPERVISOR = ?
             AND DATA BETWEEN TO_DATE(?, 'DD/MM/YYYY') AND TO_DATE(?, 'DD/MM/YYYY')
         """
-        
+
         try:
-            result = oracle_db.execute_query(query, [codsupervisor, data1, data2]) 
+            result = oracle_db.execute_query(
+                query, [codsupervisor, data1, data2])
             if not result:
                 logger.warning(f"⚠️ Nenhum dado encontrado.")
 
@@ -160,11 +164,11 @@ class Model:
         except Exception as e:
             logger.error(f"❌ Erro ao executar consulta {e}", exc_info=True)
             return None
-    
+
     @staticmethod
     def sales_by_superv(codsupervisor, data1):
         """Executa uma consulta no banco e retorna informações"""
-        
+
         # Query SQL para extrair informações do banco de dados
         query = """
         SELECT
@@ -175,9 +179,9 @@ class Model:
             CODSUPERVISOR = ?
             AND DATA = TO_DATE(?, 'DD/MM/YYYY')
         """
-        
+
         try:
-            result = oracle_db.execute_query(query, [codsupervisor, data1]) 
+            result = oracle_db.execute_query(query, [codsupervisor, data1])
             if not result:
                 logger.warning(f"⚠️ Nenhum dado encontrado.")
 
@@ -210,7 +214,7 @@ class Model:
     @staticmethod
     def nf_xml_data(numnota):
         """Executa uma consulta no banco e retorna informações"""
-        
+
         # Query SQL para extrair informações do banco de dados
         query = f"""
             SELECT
@@ -221,9 +225,9 @@ class Model:
                 ROWNUM = 1 AND
                 NUMNOTA = ?
         """
-        
+
         try:
-            result = oracle_db.execute_query(query, [numnota,]) 
+            result = oracle_db.execute_query(query, [numnota,])
             if not result:
                 logger.warning(f"⚠️ Nenhum dado encontrado.")
 
@@ -237,7 +241,7 @@ class Model:
     @staticmethod
     def boleto_data(numped):
         """Executa uma consulta no banco e retorna informações"""
-        
+
         # Query SQL para extrair informações do banco de dados
         query = f"""
         SELECT
@@ -256,9 +260,9 @@ class Model:
         ROWNUM = 1 AND
         NUMNOTA = ?
         """
-        
+
         try:
-            result = oracle_db.execute_query(query, [numped,]) 
+            result = oracle_db.execute_query(query, [numped,])
             if not result:
                 logger.warning(f"⚠️ Nenhum dado encontrado.")
 
@@ -267,4 +271,76 @@ class Model:
 
         except Exception as e:
             logger.error(f"❌ Erro ao executar consulta {e}", exc_info=True)
+            return None
+
+    @staticmethod
+    def sales_by_rca_fornec(codfornec, codemitente, data1, data2,):
+        """Executa uma consulta no banco e retorna informações de vendas por emitente/fornecedor."""
+
+        query = f"""
+            WITH
+                VENDAS AS (
+                    SELECT
+                        A.DATA,
+                        B.CODUSUR,
+                        D.CODFORNEC,
+                        D.FORNECEDOR,
+                        CASE
+                            WHEN B.CODEMITENTE IN (8888, 882, 883)
+                            THEN B.CODUSUR
+                            ELSE (SELECT PCEMPR.CODUSUR FROM PCEMPR WHERE PCEMPR.MATRICULA = B.CODEMITENTE)
+                        END AS CODEMITENTEPED,        
+                        ROUND(SUM((A.PVENDA - A.VLREPASSE) * A.QT),2) AS VENDALIQ,
+                        SUM(A.QT) AS UNIDS,
+                        COUNT (DISTINCT A.CODPROD) AS MIX,
+                        COUNT (DISTINCT B.CODCLI) AS POSITIV
+                    FROM
+                        PCPEDI A
+                        JOIN PCPEDC B ON A.NUMPED = B.NUMPED
+                        JOIN PCPRODUT C ON A.CODPROD = C.CODPROD
+                        JOIN PCFORNEC D ON C.CODFORNEC = D.CODFORNEC
+                    WHERE
+                        A.POSICAO IN ('F','L')
+                        AND A.QT > 0
+                        AND B.TIPOVENDA NOT IN ('5')
+                    GROUP BY
+                        A.DATA,
+                        B.CODUSUR,
+                        B.CODEMITENTE,        
+                        D.CODFORNEC,
+                        D.FORNECEDOR
+                        
+                )
+
+            SELECT
+                H.CODSUPERVISOR,
+                G.CODEMITENTEPED,
+                SUM(VENDALIQ) AS VENDALIQ,
+                SUM(UNIDS) AS UNIDS,
+                SUM(MIX) AS MIX,
+                SUM(POSITIV) AS POSITIV
+            FROM
+                VENDAS G
+                JOIN PCUSUARI H ON G.CODEMITENTEPED = H.CODUSUR
+            WHERE
+                G.CODFORNEC = ?
+                AND G.CODEMITENTEPED = ?
+                AND G.DATA BETWEEN ? AND ?
+            GROUP BY
+                H.CODSUPERVISOR,
+                G.CODEMITENTEPED
+        """
+
+        try:
+            result = oracle_db.execute_query(
+                query, [codfornec, codemitente, data1, data2,])
+            if not result:
+                logger.warning(f"⚠️ Nenhum dado encontrado.")
+
+            return result if result else None
+            """ A consulta deve retornar os dados (colunas) de acordo com o model que será criado para fazer o tráfego de dados."""
+
+        except Exception as e:
+            logger.error(
+                f"❌ Erro ao executar consulta de vendas por emitente/fornecedor {e}", exc_info=True)
             return None

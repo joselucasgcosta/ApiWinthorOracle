@@ -151,3 +151,15 @@ async def boleto_data(numnota: int, user: dict = Depends(get_current_user)):
     except Exception as e:
         logger.error(f"❌ Erro na rota /boleto_data: {e}")
         raise HTTPException(status_code=500, detail="Erro interno no servidor")
+
+@client_router.get("/sales_by_rca_fornec")
+async def sales_by_rca_fornec(codfornec: int, codemitente: int, data1: str, data2: str, user: dict = Depends(get_current_user)):
+    try:
+        result = Model.sales_by_rca_fornec(codfornec, codemitente, data1, data2)
+        return {
+            "user": user["username"],
+            "data": result or []
+        }
+    except Exception as e:
+        logger.error(f"❌ Erro na rota /sales_by_rca_fornec: {e}")
+        raise HTTPException(status_code=500, detail="Erro interno no servidor")
