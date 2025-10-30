@@ -26,7 +26,6 @@ class Model:
             return None
 
     @staticmethod
-    # pode ser alterado o nome da função para algo mais específico seguindo as boas práticas, mas lembre-se de alterar na rota também
     def query_info_client(codcli):
         """Executa uma consulta no banco e retorna informações"""
 
@@ -89,13 +88,21 @@ class Model:
 
         # Query SQL para extrair informações do banco de dados
         query = """
-        SELECT
-            *
-        FROM
-            VW_FXIN_CB_VENDRCA
-        WHERE
-            CODUSUR = ?
-            AND TRUNC(DATA) BETWEEN TO_DATE(?, 'DD/MM/YYYY') AND TO_DATE(?, 'DD/MM/YYYY')
+            SELECT
+                CODUSUR,
+                DATA,
+                SUM(FATURADO) AS FATURADO,
+                SUM(LIBERADO) AS LIBERADO,
+                SUM(BLOQUEADO) AS BLOQUEADO,
+                SUM("VENDA TOTAL") AS "VENDA TOTAL"
+            FROM
+                VW_FXIN_CB_VENDRCA
+            WHERE
+                CODUSUR = ?
+                AND TRUNC(DATA) BETWEEN TO_DATE(?, 'DD/MM/YYYY') AND TO_DATE(?, 'DD/MM/YYYY')
+            GROUP BY
+                CODUSUR,
+                DATA
         """
 
         try:
@@ -116,13 +123,21 @@ class Model:
 
         # Query SQL para extrair informações do banco de dados
         query = """
-        SELECT
-            *
-        FROM
-            VW_FXIN_CB_VENDRCA
-        WHERE
-            CODUSUR = ?
-            AND TRUNC(DATA) = TO_DATE(?, 'DD/MM/YYYY')
+            SELECT
+                CODUSUR,
+                DATA,
+                SUM(FATURADO) AS FATURADO,
+                SUM(LIBERADO) AS LIBERADO,
+                SUM(BLOQUEADO) AS BLOQUEADO,
+                SUM("VENDA TOTAL") AS "VENDA TOTAL"
+            FROM
+                VW_FXIN_CB_VENDRCA
+            WHERE
+                CODUSUR = ?
+                AND TRUNC(DATA) = TO_DATE(?, 'DD/MM/YYYY')
+            GROUP BY
+                CODUSUR,
+                DATA
         """
 
         try:
