@@ -304,7 +304,7 @@ class Model:
                             WHEN B.CODEMITENTE IN (8888, 882, 883)
                             THEN B.CODUSUR
                             ELSE (SELECT PCEMPR.CODUSUR FROM PCEMPR WHERE PCEMPR.MATRICULA = B.CODEMITENTE)
-                        END AS CODEMITENTEPED,        
+                        END AS CODEMITENTEPED,
                         ROUND(SUM((A.PVENDA - A.VLREPASSE) * A.QT),2) AS VENDALIQ,
                         SUM(A.QT) AS UNIDS,
                         COUNT (DISTINCT A.CODPROD) AS MIX,
@@ -321,34 +321,53 @@ class Model:
                     GROUP BY
                         A.DATA,
                         B.CODUSUR,
-                        B.CODEMITENTE,        
+                        B.CODEMITENTE,
                         D.CODFORNEC,
                         D.FORNECEDOR
-                        
+                ),
+
+                METAS AS (
+                    SELECT
+                        E.DATA,
+                        E.CODIGO,
+                        E.CODUSUR,
+                        E.VLVENDAPREV AS META
+                    FROM
+                        PCMETA E
+                    WHERE
+                        E.TIPOMETA = 'FR'
                 )
 
             SELECT
                 H.CODSUPERVISOR,
-                G.CODEMITENTEPED,
-                SUM(VENDALIQ) AS VENDALIQ,
-                SUM(UNIDS) AS UNIDS,
-                SUM(MIX) AS MIX,
-                SUM(POSITIV) AS POSITIV
+                E.CODUSUR AS CODEMITENTEPED,
+                E.CODIGO,
+                SUM(E.META) AS META,
+                NVL(SUM(G.VENDALIQ),0) AS VENDALIQ,
+                NVL(SUM(G.UNIDS),0) AS UNIDS,
+                NVL(SUM(G.MIX),0) AS MIX,
+                NVL(SUM(G.POSITIV),0) AS POSITIV
             FROM
-                VENDAS G
-                JOIN PCUSUARI H ON G.CODEMITENTEPED = H.CODUSUR
+                METAS E
+                JOIN PCUSUARI H ON E.CODUSUR = H.CODUSUR
+                LEFT JOIN VENDAS G
+                    ON E.CODUSUR = G.CODEMITENTEPED
+                    AND E.CODIGO = G.CODFORNEC
+                    AND G.DATA BETWEEN ? AND ?
             WHERE
-                G.CODFORNEC = ?
-                AND G.CODEMITENTEPED = ?
-                AND G.DATA BETWEEN ? AND ?
+                E.CODIGO = ?
+                AND E.CODUSUR = ?
             GROUP BY
                 H.CODSUPERVISOR,
-                G.CODEMITENTEPED
+                E.CODUSUR,
+                E.CODIGO
+            ORDER BY
+                E.CODIGO
         """
 
         try:
             result = oracle_db.execute_query(
-                query, [codfornec, codemitente, data1, data2,])
+                query, [data1, data2, codfornec, codemitente,])
             if not result:
                 logger.warning(f"⚠️ Nenhum dado encontrado.")
 
