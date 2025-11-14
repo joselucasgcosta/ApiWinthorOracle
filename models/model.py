@@ -342,7 +342,7 @@ class Model:
                 H.CODSUPERVISOR,
                 E.CODUSUR AS CODEMITENTEPED,
                 E.CODIGO,
-                SUM(E.META) AS META,
+                E.META AS META,
                 NVL(SUM(G.VENDALIQ),0) AS VENDALIQ,
                 NVL(SUM(G.UNIDS),0) AS UNIDS,
                 NVL(SUM(G.MIX),0) AS MIX,
@@ -360,7 +360,8 @@ class Model:
             GROUP BY
                 H.CODSUPERVISOR,
                 E.CODUSUR,
-                E.CODIGO
+                E.CODIGO,
+                E.META
             ORDER BY
                 E.CODIGO
         """
